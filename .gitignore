@@ -1,0 +1,47 @@
+# Dependencies
+node_modules/
+.pnp
+.pnp.js
+
+# Build outputs
+dist/
+build/
+.next/
+out/
+.cache/
+.turbo/
+.parcel-cache/
+.vercel/
+
+# Environment (NEVER commit secrets)
+.env
+.env.local
+.env.*.local
+.env.bak*
+.env.*.bak
+.env.production
+.env.development
+*.env.production.local
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+pnpm-debug.log*
+
+# OS / editor
+.DS_Store
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# Tests / coverage
+coverage/
+.nyc_output/
+
+# Misc
+*.tmp
+*.bak
+
