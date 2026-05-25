@@ -445,7 +445,13 @@ details.faq p { margin-top: 0.85rem; font-size: 0.95rem; color: var(--slate-700)
 .footer .nap-block { font-size: 0.92rem; line-height: 1.7; }
 .footer .nap-block strong { color: white; }
 .footer .nap-block svg { width: 14px; height: 14px; flex-shrink: 0; stroke: var(--teal-500); }
-.footer .nap-block > div { display: flex; align-items: center; gap: 6px; padding: 3px 0; }
+/* Each nap-block row: flex so icon + text sit side-by-side, position:relative anchors the tap overlay */
+.footer .nap-block > div { display: flex; align-items: center; gap: 6px; padding: 3px 0; position: relative; min-height: 44px; }
+/* Make the email link clearly teal and visually obvious */
+.footer .nap-block a[href^="mailto"] { color: var(--teal-400) !important; }
+/* Extend the tap target to cover the full row (icon + text) via pseudo-element overlay */
+.footer .nap-block a[href^="mailto"]::after { content: ''; position: absolute; inset: 0; }
+/* nap-link: used when SVG is wrapped inside the anchor (updated HTML) */
 .nap-link { display: flex !important; align-items: center; gap: 6px; padding: 6px 0 !important; color: var(--teal-400) !important; min-height: 44px; }
 .footer-bottom {
   border-top: 1px solid var(--slate-700);
