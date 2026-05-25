@@ -515,10 +515,9 @@ details.faq p { margin-top: 0.85rem; font-size: 0.95rem; color: var(--slate-700)
 }
 .team-photo-wrap img {
   width: 100%;
+  max-width: 860px;
+  margin: 0 auto;
   border-radius: 14px;
-  max-height: 520px;
-  object-fit: cover;
-  object-position: center 20%;
   display: block;
 }
 .photo-grid {
@@ -536,7 +535,6 @@ details.faq p { margin-top: 0.85rem; font-size: 0.95rem; color: var(--slate-700)
 }
 @media (max-width: 640px) {
   .photo-grid { grid-template-columns: 1fr; }
-  .team-photo-wrap img { max-height: 300px; object-position: center 10%; }
 }
 
 /* Print */
