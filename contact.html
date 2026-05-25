@@ -41,7 +41,12 @@
       <div>
         <h2>Request a quote</h2>
         <p>The more you tell us, the more accurate the quote. All fields are optional except name and contact.</p>
-        <form class="form-card" action="mailto:info@mytidyguys.com" method="post" enctype="text/plain">
+        <!-- Quote request form — submissions go to info@mytidyguys.com via Web3Forms -->
+        <form class="form-card" id="quote-form" action="https://api.web3forms.com/submit" method="POST">
+          <input type="hidden" name="access_key" value="REPLACE_WITH_WEB3FORMS_KEY">
+          <input type="hidden" name="subject" value="New Quote Request — Tidy Guys">
+          <input type="hidden" name="from_name" value="Tidy Guys Website">
+          <input type="hidden" name="redirect" value="false">
           <div class="form-grid">
             <div class="form-row">
               <label for="name">Your Name *</label>
@@ -106,9 +111,48 @@
             <label for="message">Anything else we should know?</label>
             <textarea id="message" name="message" placeholder="Special requirements, preferred service times, current cleaning situation, etc."></textarea>
           </div>
-          <button type="submit" class="btn btn-primary btn-lg btn-block">Send Quote Request →</button>
+          <button type="submit" id="submit-btn" class="btn btn-primary btn-lg btn-block">Send Quote Request →</button>
           <p class="form-help" style="text-align:center;margin-top:0.85rem;">Or email us directly at <a href="mailto:info@mytidyguys.com">info@mytidyguys.com</a></p>
         </form>
+
+        <!-- Success state (hidden until form submits) -->
+        <div id="form-success" style="display:none;" class="form-card" style="text-align:center;padding:3rem 2rem;">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2.5" style="width:56px;height:56px;margin:0 auto 1rem;display:block;"><circle cx="12" cy="12" r="10"/><polyline points="9 12 11 14 15 10"/></svg>
+          <h3 style="color:#16a34a;margin-bottom:0.5rem;">Quote request received!</h3>
+          <p>We'll respond within one business day. If you need something sooner, call <a href="tel:+16159558439">(615) 955-TIDY</a>.</p>
+        </div>
+
+        <script>
+        (function(){
+          var form = document.getElementById('quote-form');
+          var success = document.getElementById('form-success');
+          var btn = document.getElementById('submit-btn');
+          if(!form) return;
+          form.addEventListener('submit', function(e){
+            e.preventDefault();
+            btn.disabled = true;
+            btn.textContent = 'Sending…';
+            var data = new FormData(form);
+            fetch('https://api.web3forms.com/submit', { method:'POST', body: data })
+              .then(function(r){ return r.json(); })
+              .then(function(res){
+                if(res.success){
+                  form.style.display = 'none';
+                  success.style.display = 'block';
+                } else {
+                  btn.disabled = false;
+                  btn.textContent = 'Send Quote Request →';
+                  alert('Something went wrong. Please email info@mytidyguys.com directly.');
+                }
+              })
+              .catch(function(){
+                btn.disabled = false;
+                btn.textContent = 'Send Quote Request →';
+                alert('Something went wrong. Please email info@mytidyguys.com directly.');
+              });
+          });
+        })();
+        </script>
       </div>
 
       <aside class="sidebar">
