@@ -42,11 +42,10 @@
         <h2>Request a quote</h2>
         <p>The more you tell us, the more accurate the quote. All fields are optional except name and contact.</p>
         <!-- Quote request form — submissions go to info@mytidyguys.com via Web3Forms -->
-        <form class="form-card" id="quote-form" action="https://api.web3forms.com/submit" method="POST">
-          <input type="hidden" name="access_key" value="REPLACE_WITH_WEB3FORMS_KEY">
-          <input type="hidden" name="subject" value="New Quote Request — Tidy Guys">
-          <input type="hidden" name="from_name" value="Tidy Guys Website">
-          <input type="hidden" name="redirect" value="false">
+        <form class="form-card" id="quote-form" action="https://formsubmit.co/ajax/info@mytidyguys.com" method="POST">
+          <input type="hidden" name="_subject" value="New Quote Request — Tidy Guys">
+          <input type="hidden" name="_template" value="table">
+          <input type="hidden" name="_captcha" value="false">
           <div class="form-grid">
             <div class="form-row">
               <label for="name">Your Name *</label>
@@ -133,10 +132,10 @@
             btn.disabled = true;
             btn.textContent = 'Sending…';
             var data = new FormData(form);
-            fetch('https://api.web3forms.com/submit', { method:'POST', body: data })
+            fetch('https://formsubmit.co/ajax/info@mytidyguys.com', { method:'POST', body: data })
               .then(function(r){ return r.json(); })
               .then(function(res){
-                if(res.success){
+                if(res.success === 'true' || res.success === true){
                   form.style.display = 'none';
                   success.style.display = 'block';
                 } else {
