@@ -444,7 +444,9 @@ details.faq p { margin-top: 0.85rem; font-size: 0.95rem; color: var(--slate-700)
 .footer .footer-tagline { font-size: 0.92rem; color: var(--slate-300); margin-bottom: 1.25rem; max-width: 30ch; }
 .footer .nap-block { font-size: 0.92rem; line-height: 1.7; }
 .footer .nap-block strong { color: white; }
-.footer .nap-block svg { width: 14px; height: 14px; vertical-align: -2px; margin-right: 6px; stroke: var(--teal-500); }
+.footer .nap-block svg { width: 14px; height: 14px; flex-shrink: 0; stroke: var(--teal-500); }
+.footer .nap-block > div { display: flex; align-items: center; gap: 6px; padding: 3px 0; }
+.nap-link { display: flex !important; align-items: center; gap: 6px; padding: 6px 0 !important; color: var(--teal-400) !important; min-height: 44px; }
 .footer-bottom {
   border-top: 1px solid var(--slate-700);
   padding-top: 1.5rem;
