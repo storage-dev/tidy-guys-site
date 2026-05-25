@@ -509,6 +509,36 @@ details.faq p { margin-top: 0.85rem; font-size: 0.95rem; color: var(--slate-700)
   .topbar-right { display: none; }
 }
 
+/* Photo sections */
+.team-photo-wrap {
+  padding: 2rem 0 0;
+}
+.team-photo-wrap img {
+  width: 100%;
+  border-radius: 14px;
+  max-height: 520px;
+  object-fit: cover;
+  object-position: center 20%;
+  display: block;
+}
+.photo-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  margin: 1.5rem 0 2rem;
+}
+.photo-grid img {
+  width: 100%;
+  border-radius: 10px;
+  object-fit: cover;
+  aspect-ratio: 4 / 3;
+  display: block;
+}
+@media (max-width: 640px) {
+  .photo-grid { grid-template-columns: 1fr; }
+  .team-photo-wrap img { max-height: 300px; object-position: center 10%; }
+}
+
 /* Print */
 @media print {
   .header, .footer, .topbar, .hero-card, .cta-band { display: none; }
