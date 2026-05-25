@@ -263,32 +263,49 @@
       </div>
 
       <aside class="hero-card hero-video" style="padding:0;overflow:hidden;background:#000;">
-        <div id="tg-video" class="tg-video-wrap" role="button" tabindex="0" aria-label="Play Tidy Guys commercial" style="position:relative;aspect-ratio:16/9;width:100%;cursor:pointer;background:url('https://i.ytimg.com/vi/BDt0sd2KgnM/maxresdefault.jpg') center/cover no-repeat;">
-          <div aria-hidden="true" style="position:absolute;inset:0;background:linear-gradient(180deg, rgba(0,0,0,0) 40%, rgba(0,0,0,0.55) 100%);"></div>
-          <div aria-hidden="true" style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:74px;height:74px;border-radius:50%;background:rgba(220,38,38,0.95);display:flex;align-items:center;justify-content:center;box-shadow:0 8px 24px rgba(0,0,0,0.45);">
-            <svg width="28" height="28" viewBox="0 0 24 24" fill="white" aria-hidden="true"><polygon points="8,5 19,12 8,19"/></svg>
-          </div>
-          <div style="position:absolute;left:1rem;right:1rem;bottom:0.9rem;color:#fff;font-weight:700;font-size:0.95rem;letter-spacing:0.01em;text-shadow:0 1px 4px rgba(0,0,0,0.6);">▶ Watch the Tidy Guys commercial</div>
+        <div style="position:relative;aspect-ratio:16/9;width:100%;">
+          <iframe
+            id="tg-yt"
+            src="https://www.youtube.com/embed/BDt0sd2KgnM?autoplay=1&mute=1&rel=0&modestbranding=1&enablejsapi=1&playsinline=1"
+            title="Tidy Guys commercial — Nashville commercial cleaning"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowfullscreen
+            style="position:absolute;inset:0;width:100%;height:100%;border:0;display:block;">
+          </iframe>
+          <!-- Sound button — browsers require mute for autoplay; one tap turns it on -->
+          <button id="tg-sound-btn" aria-label="Turn on sound" style="
+            position:absolute;bottom:1rem;right:1rem;
+            background:rgba(0,0,0,0.72);color:#fff;
+            border:2px solid rgba(255,255,255,0.35);
+            border-radius:50px;padding:0.5rem 1.1rem;
+            font-size:0.9rem;font-weight:700;letter-spacing:0.02em;
+            cursor:pointer;display:flex;align-items:center;gap:0.45rem;
+            backdrop-filter:blur(6px);z-index:10;
+            transition:background 0.2s,transform 0.15s;">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>
+            Tap for sound
+          </button>
         </div>
         <script>
-          (function(){
-            var w = document.getElementById('tg-video');
-            if(!w) return;
-            function load(){
-              var f = document.createElement('iframe');
-              f.setAttribute('src','https://www.youtube.com/embed/BDt0sd2KgnM?autoplay=1&rel=0&modestbranding=1');
-              f.setAttribute('title','Tidy Guys commercial');
-              f.setAttribute('allow','accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share');
-              f.setAttribute('allowfullscreen','');
-              f.setAttribute('loading','lazy');
-              f.style.cssText='width:100%;height:100%;border:0;display:block;';
-              w.innerHTML='';
-              w.style.cursor='default';
-              w.appendChild(f);
-            }
-            w.addEventListener('click', load);
-            w.addEventListener('keydown', function(e){ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); load(); } });
-          })();
+        (function(){
+          var btn = document.getElementById('tg-sound-btn');
+          var iframe = document.getElementById('tg-yt');
+          if (!btn || !iframe) return;
+          btn.addEventListener('click', function() {
+            // Unmute and set full volume via YouTube iframe API
+            iframe.contentWindow.postMessage(
+              JSON.stringify({event:'command', func:'unMute', args:''}), '*'
+            );
+            iframe.contentWindow.postMessage(
+              JSON.stringify({event:'command', func:'setVolume', args:[100]}), '*'
+            );
+            // Swap icon to speaker-on
+            btn.innerHTML = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg> Sound on';
+            btn.style.background = 'rgba(22,163,74,0.85)';
+            btn.style.borderColor = 'rgba(255,255,255,0.5)';
+            setTimeout(function(){ btn.style.opacity='0'; btn.style.pointerEvents='none'; }, 2500);
+          });
+        })();
         </script>
       </aside>
     </div>
