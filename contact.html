@@ -2,6 +2,14 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-0H05C6T5EZ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-0H05C6T5EZ');
+</script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Contact Tidy Guys | Free Commercial Cleaning Quote in Nashville</title>
 <meta name="description" content="Get a free commercial cleaning quote from Tidy Guys in Nashville. Call (615) 955-TIDY, email info@mytidyguys.com, or fill out the form for a same-day response.">
@@ -175,6 +183,15 @@
 
             /* Open email app */
             window.location.href = mailto;
+
+            /* GA4 conversion — quote form submitted */
+            if (typeof gtag === 'function') {
+              gtag('event', 'generate_lead', {
+                event_category: 'Quote Form',
+                event_label: 'Contact Page Submission',
+                value: 1
+              });
+            }
 
             /* Show success panel after brief delay */
             setTimeout(function() {
